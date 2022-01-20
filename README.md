@@ -18,5 +18,5 @@ We use existing unbalanced labeled data to train a Convolutional Neural Network.
 CNN Classifier Architecture  
 ![](data/models_architecture/CNN.png)
 
-The model with adjusted weights perform well on the test set with a precision of 89% and a recall of 87% for negative predictions. (60'000 samples)  
+The model with adjusted weights perform well on the test set with a precision of 93% and a recall of 87% for negative predictions. (60'000 samples)  
 
