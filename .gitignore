@@ -4,3 +4,6 @@
 *.pyc
 /archive
 /FlaskApp/static/uploads
+/data/train
+/data/test
+/data/images
