@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>Welcome to the wheel of emotions</h1>
+
+  <p> This tool is able to identify the emotion in a sentence.</p>
+
+  <form action="{{ url_for('result') }}" method="POST">
+      <textarea rows = "5" cols = "50" name = "sentence">I am a little sad today.</textarea>
+      <p><input type = "Submit" value = "Submit" /></p>
+    </form>
+
+{% endblock content %}
