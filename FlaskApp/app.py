@@ -26,6 +26,7 @@ def home():
  
 @app.route('/', methods=['GET','POST'])
 def upload_image():
+    
     M = "TL"
     
     if 'file' not in request.files:
@@ -41,7 +42,7 @@ def upload_image():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        flash('Image successfully uploaded and displayed below')
+        flash('Image successfully uploaded')
         
         image_url = url_for('display_image', filename=filename)
         
@@ -56,7 +57,7 @@ def upload_image():
             imgen = img_datagen.flow(img, batch_size=1)
             model = get_xception()
             model.compile(loss='binary_crossentropy', optimizer="Adam", metrics=["accuracy"])
-            model.build(input_shape=(None, 51, 51, 3))
+            model.build(input_shape=(None, 50, 50, 3))
             model.load_weights(r'C:\Users\straw\Desktop\AIS2\Breast-cancer-classification\data\models_weight\Xception_TLearning_weights.h5')
 
         else:
@@ -69,7 +70,7 @@ def upload_image():
                 
         # predict image
         y_pred = model.predict(imgen).argmax()
-        return '''<h1>The prediction is: {}</h1> <img src="{}">'''.format(y_pred, image_url)
+        return '''<h1>The prediction is : {}</h1> <img src="{}">'''.format(y_pred, image_url)
     
     else:
         flash('Allowed image types are - png, jpg, jpeg, gif')
