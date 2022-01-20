@@ -2,6 +2,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 import os
 from werkzeug.utils import secure_filename
 from keras.preprocessing.image import img_to_array, load_img, ImageDataGenerator
+from keras.applications.xception import preprocess_input
 import numpy as np
 
 from loadcnn import get_cnn
@@ -48,17 +49,19 @@ def upload_image():
         img = load_img("static/uploads/"+filename)
         img = img_to_array(img)
         img = np.expand_dims(img, axis=0)
-        img_datagen = ImageDataGenerator(rescale=1/255.0)
-        imgen = img_datagen.flow(img, batch_size=1)
         
         # load models
         if M == "TL":
+            img_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+            imgen = img_datagen.flow(img, batch_size=1)
             model = get_xception()
             model.compile(loss='binary_crossentropy', optimizer="Adam", metrics=["accuracy"])
             model.build(input_shape=(None, 51, 51, 3))
             model.load_weights(r'C:\Users\straw\Desktop\AIS2\Breast-cancer-classification\data\models_weight\Xception_TLearning_weights.h5')
 
         else:
+            img_datagen = ImageDataGenerator(rescale=1/255.0)
+            imgen = img_datagen.flow(img, batch_size=1)
             model = get_cnn()
             model.compile(loss='binary_crossentropy', optimizer="Adam", metrics=["accuracy"])
             model.build(input_shape=(None, 50, 50, 3))
