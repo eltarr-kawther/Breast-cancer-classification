@@ -1,5 +1,6 @@
 .ipynb_checkpoints
 *.xml
 *.iml
-*.png
 *.pyc
+/archive
+/FlaskApp/static/uploads
